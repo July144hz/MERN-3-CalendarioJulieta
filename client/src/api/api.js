@@ -1,33 +1,78 @@
-import axios from 'axios'
+import axios from "axios";
+const ls = window.localStorage;
 
+const getTasks = () => {
+  return JSON.parse(ls.getItem("task"));
+};
+const addTask = (task) => {
+  let old_data = getTasks().data;
+  old_data.push(task);
+  console.log(old_data);
+  ls.setItem(
+    "task",
+    JSON.stringify({
+      data: old_data,
+    })
+  );
+};
 
-export const deleteTaskRequest = async (id) =>{
-    return await axios.delete("http://localhost:4000/tasks/"+id)
+const removeElement = (a, index) =>{
+    let newArray = [...a]
+    newArray.splice(index,1)
+    return newArray
 }
 
-export const getTasksRequest = async () =>{
-    try {
-        return await axios.get("http://localhost:4000/tasks")
-    } catch (error) {
-        console.log(error)
-        return null
+const deleteTask = (task) => {
+  let tasks = getTasks().data;
+  tasks.map((e) => {
+    if (JSON.stringify(e) === JSON.stringify(task)) {
+      console.log(tasks.indexOf(e));
+      tasks = removeElement(tasks, tasks.indexOf(e))
     }
-    
-}
+  });
+  ls.setItem(
+    "task",
+    JSON.stringify({
+      data: tasks,
+    })
+  );
+};
 
-export const createTaskRequest = async (task) =>{
-    return await axios.post('http://localhost:4000/tasks', task)
-}
+export const deleteTaskRequest = async (task) => {
+  return await deleteTask(task);
+};
 
-export const getTaskRequest = async (id)=>{
-    try {
-        return await axios.get("http://localhost:4000/tasks/"+id)
-    } catch (error) {
-        return null
+export const getTasksRequest = async () => {
+  try {
+    if (ls.getItem("task") == null) {
+      ls.setItem(
+        "task",
+        JSON.stringify({
+          data: [],
+        })
+      );
     }
+    let data = getTasks();
     
-}
+    return await data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
-export const updateTaskRequest = async (id, newFields)=>{
-    return await axios.put("http://localhost:4000/task/"+id, newFields)
-}
+export const createTaskRequest = async (task) => {
+  console.log(task);
+  addTask(task);
+
+  // return await axios.post('http://localhost:4000/tasks', task)
+};
+
+export const getTaskRequest = async (id) => {
+  try {
+    return await axios.get("http://localhost:4000/tasks/" + id);
+  } catch (error) {
+    return null;
+  }
+};
+

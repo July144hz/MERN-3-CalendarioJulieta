@@ -31,8 +31,10 @@ function AddTask(props) {
         fin: fin,
         color: color,
       }).then((resp) => {
-        console.log(resp);
         refresh();
+        setTimeout(() => {
+          window.location.reload()
+        }, 1);
       });
 
       props.show();

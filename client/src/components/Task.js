@@ -15,8 +15,11 @@ function Task(props) {
   }, []);
 
   const handleDelete = () => {
-    deleteTaskRequest(data.id).then(()=>{
+    deleteTaskRequest(data).then(()=>{
       refresh()
+      setTimeout(() => {
+        window.location.reload()
+      }, 1);
     })
   };
 

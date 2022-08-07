@@ -39,13 +39,16 @@ function MyProvider(props) {
         }
       });
     } catch (error) {
-      setTasks({})
+      setTasks(null)
     }
   }
 
   useEffect(() => {
     return () => {
       refresh()
+      setTimeout(() => {
+        refresh()
+      }, 3000);
     };
   }, []);
 

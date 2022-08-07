@@ -11,8 +11,8 @@ function App() {
     <BrowserRouter>
       <MyProvider>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<MainPage />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </MyProvider>
     </BrowserRouter>

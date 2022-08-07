@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     background: url(../imgs/foto.jpeg);
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -14,8 +15,8 @@ body{
 .Calendario{
     box-shadow: 0 0 5px #000;
     display: grid;
-    overflow: hidden;
-    grid-template-columns: repeat(7, 1fr);
+    overflow: auto;
+    grid-template-columns: repeat(7, 262px);
     grid-template-rows: 1fr;
     align-items: center;
     justify-items: center;
@@ -23,7 +24,7 @@ body{
     background-color: rgba(238, 238, 238, 0.2);
     padding: 10px;
     border-radius: 10px;
-    width: 98vw;
+    width: 100vw;
 }
 .Calendario>.day:nth-child(1)>span:first-child{
     background: #0d0;

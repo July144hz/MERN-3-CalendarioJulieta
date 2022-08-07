@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/AddTask.css";
 import { createTaskRequest } from "../api/api";
 import { useTasks } from "../context/MyProvider";
 
 function AddTask(props) {
   const { refresh } = useTasks();
-
+  const [dia] = useState(props.dia);
+  
+  
   useEffect(() => {
-    return () => {
-      try {
-        let select = document.getElementById("selectDay");
-        select.selectedIndex = props.dia;
-      } catch (error) {}
-
-      document.querySelectorAll(".input-title").forEach((element) => {
-        console.log("ewq");
-        element.addEventListener("blur", (event) => {
-          if (event.target.value !== "") {
-            event.target.nextElementSibling.classList.add("filled");
-          } else {
-            event.target.nextElementSibling.classList.remove("filled");
-          }
-        });
-      });
-    };
+    try {
+      let select = document.getElementById("selectDay");
+      select.selectedIndex = dia;
+      console.log(dia)
+    } catch (error) {}
   }, []);
 
   const handleSend = (e) => {
@@ -42,12 +32,12 @@ function AddTask(props) {
         color: color,
       }).then((resp) => {
         console.log(resp);
-        refresh()
+        refresh();
       });
 
       props.show();
-    }else{
-      alert('Entrada Invalida')
+    } else {
+      alert("Entrada Invalida");
     }
   };
 
@@ -72,7 +62,7 @@ function AddTask(props) {
             className="input-title"
           />
           <label
-            className="inputTitleLabel"
+            className="inputTitleLabel filled"
             onClick={(e) => {
               document.getElementById("inputTitle").focus();
             }}
@@ -88,7 +78,9 @@ function AddTask(props) {
           <button className="btnAdd" onClick={handleSend}>
             Agregar
           </button>
-          <button className="btnBack" onClick={props.show}>Volver</button>
+          <button className="btnBack" onClick={props.show}>
+            Volver
+          </button>
         </div>
       </div>
     </div>

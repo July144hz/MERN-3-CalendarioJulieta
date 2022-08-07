@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect } from "react";
 import "../styles/MainPage.css";
 import Task from "../components/Task";
 import AddButton from "../components/AddButton";
@@ -9,8 +9,11 @@ import AddButton from "../components/AddButton";
 import { useTasks } from "../context/MyProvider";
 
 function MainPage() {
-  const { tasks, setTasks, refresh } = useTasks();
+  const { tasks, refresh } = useTasks();
 
+  useEffect(() => {
+    refresh()
+  }, [])
   
 
   return (

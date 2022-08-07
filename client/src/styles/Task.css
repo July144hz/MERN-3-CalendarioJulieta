@@ -11,6 +11,7 @@
     padding: 10px;
     overflow: hidden;
     font-size: 20px;
+    text-align: center;
 }
 .task-title{
     text-decoration:underline;
